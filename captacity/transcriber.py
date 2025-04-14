@@ -1,5 +1,9 @@
 import openai
 from openai._types import FileTypes
+# from typing import Union
+# import io
+
+# FileTypes = Union[str, bytes, io.BufferedIOBase]
 
 def transcribe_with_api(
     audio_file: FileTypes,
@@ -16,17 +20,14 @@ def transcribe_with_api(
         prompt=prompt,
     )
 
-    # Add space to beginning of words
-    # to match local Whisper format
     for word in transcript.words:
-        word["word"] = " " + word["word"]
+        word.word = " " + word.word
 
-    # Return response in same format
-    # as local Whisper format
+    # Convert objects to dicts if needed
     return [{
-        "start": transcript.segments[0]["start"],
-        "end": transcript.segments[-1]["end"],
-        "words": transcript.words,
+        "start": transcript.segments[0].start,
+        "end": transcript.segments[-1].end,
+        "words": [word.__dict__ for word in transcript.words],
     }]
 
 def transcribe_locally(

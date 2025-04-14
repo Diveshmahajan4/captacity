@@ -86,7 +86,7 @@ def create_text(
     if arg_hash in text_cache:
         return text_cache[arg_hash].copy()
 
-    text_clip = TextClipEx(txt=text, fontsize=fontsize, color=color, bg_color=bg_color, font=font, stroke_color=stroke_color, stroke_width=stroke_width, kerning=kerning)
+    text_clip = TextClipEx(txt=text, fontsize=fontsize, color=color, bg_color=bg_color, font=font, stroke_color=stroke_color, stroke_width=stroke_width, kerning=kerning, method="caption", align="east")
 
     text_clip = text_clip.set_opacity(opacity)
 
