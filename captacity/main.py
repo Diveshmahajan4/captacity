@@ -130,8 +130,8 @@ def add_captions(
     video_file,
     output_file = "with_transcript.mp4",
 
-    font = "Bangers-Regular.ttf",
-    font_size = 50,
+    font = "PoetsenOne-Regular.ttf",
+    font_size = 40,
     font_color = "white",
 
     stroke_width = 2,
@@ -224,9 +224,10 @@ def add_captions(
             line_data = calculate_lines(caption["text"], font, font_size, stroke_width, text_bbox_width)
 
             text_y_offset = video.h // 2 - line_data["height"] // 2
+            pos_y = 0.7 * video.h
             index = 0
             for line in line_data["lines"]:
-                pos = ("center", text_y_offset)
+                pos = ("center", pos_y)
 
                 words = line["text"].split()
                 word_list = []
@@ -261,7 +262,8 @@ def add_captions(
                 text = text.set_position(pos)
                 clips.append(text)
 
-                text_y_offset += line["height"]
+                text_y_offset = text_y_offset + line["height"]
+                pos_y += line["height"]
 
     end_time = time.time()
     generation_time = end_time - _start_time
